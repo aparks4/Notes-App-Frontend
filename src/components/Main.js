@@ -15,7 +15,7 @@ function Main() {
             <Routes>
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
-                <Route path='/home' element={<Home />} />
+                <Route path='/' element={<Home />} />
                 <Route path='/notes' element={<NotesIndex />} />
                 <Route path='/notes/:id' element={<NoteDetail />} />
                 <Route path='notes/new' element={<NoteCreate />} />

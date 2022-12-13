@@ -9,22 +9,24 @@ function Nav() {
 
     return (
         <nav>
-            {user ? (
-                <>
-                    <Link to="/home">Home</Link>
-                    <Link to="/notes">My Notes</Link>
-                    <Link to="/notes/new">New Note</Link>
-                </>
-            ) : (
-                <>
-                    <Link to="/home">Home</Link>
-                    <Link to="/login">Login</Link>
-                    <Link to="register">Register</Link>
-                </>
-            )
+            <div>
+                {user ? (
+                    <>
+                        <Link to="/home">Home</Link>
+                        <Link to="/notes">My Notes</Link>
+                        <Link to="/notes/new">New Note</Link>
+                        <button onClick={logoutUser}>Logout</button>
+                    </>
+                ) : (
+                    <>
+                        <Link to="/home">Home</Link>
+                        <Link to="/login">Login</Link>
+                        <Link to="register">Register</Link>
+                    </>
+                )
 
-            }
-            
+                }
+            </div>    
         </nav>
     )
 }
