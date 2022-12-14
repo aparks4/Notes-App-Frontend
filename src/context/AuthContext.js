@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 
+
 const AuthContext = createContext();
 
 export default AuthContext;
@@ -13,7 +14,7 @@ export const AuthProvider = ({ children }) => {
         : null
     );
 
-    const [user, setUser] = useState(() => 
+    const [user, setUser] = useState(() =>
         localStorage.getItem("authTokens")
         ? jwt_decode(localStorage.getItem("authTokens"))
         : null
@@ -25,7 +26,7 @@ export const AuthProvider = ({ children }) => {
 
     const loginUser = async (username, password) => {
         const response = await fetch("http://localhost:8000/token/", {
-            method: "POST",
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -34,28 +35,28 @@ export const AuthProvider = ({ children }) => {
                 password
             })
         });
-        const data = response.json();
+        const data = await response.json();
         if (response.status === 200) {
             setAuthTokens(data);
             setUser(jwt_decode(data.access));
             localStorage.setItem("authTokens", JSON.stringify(data));
             navigate("/");
-            console.log("Auth: ", user);
+            console.log('Auth: ', user);
         } else {
-            alert("Something went wrong!")
+            alert("Something went wrong!");
         }
     };
 
     const registerUser = async (username, password, password2) => {
-        const response = await fetch("http://localhost:8000/register", {
-            method: "POST",
+        const response = await fetch("http://localhost:8000/register/", {
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json"
-            },
+            }, 
             body: JSON.stringify({
-                username,
-                password,
-                password2
+                "username": username,
+                "password": password,
+                "password2": password2
             })
         });
         if (response.status === 201) {
@@ -72,15 +73,16 @@ export const AuthProvider = ({ children }) => {
         navigate('/');
     };
 
-    const contextData = [
-        user, 
+
+    const contextData = {
+        user,
         setUser,
         authTokens,
         setAuthTokens,
         registerUser,
         loginUser,
-        logoutUser
-    ];
+        logoutUser, 
+    };
 
     useEffect(() => {
         setLoading(true);
@@ -90,8 +92,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, [authTokens]);
 
-    
-    if (loading) return <p>Loading...</p>
+    if(loading) return <p>Loading...</p>
 
     return (
         <AuthContext.Provider value={contextData}>
