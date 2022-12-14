@@ -12,14 +12,14 @@ function Nav() {
             <div>
                 {user ? (
                     <>
-                        <Link to="/home">Home</Link>
+                        <Link to="/">Home</Link>
                         <Link to="/notes">My Notes</Link>
                         <Link to="/notes/new">New Note</Link>
                         <button onClick={logoutUser}>Logout</button>
                     </>
                 ) : (
                     <>
-                        <Link to="/home">Home</Link>
+                        <Link to="/">Home</Link>
                         <Link to="/login">Login</Link>
                         <Link to="register">Register</Link>
                     </>
